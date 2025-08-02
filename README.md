@@ -1,19 +1,19 @@
-# mosm-rs, a simple weather CLI
+# mosm-rs: A Simple Weather CLI
 
-A Rust-based command-line interface (CLI) application for fetching and displaying weather data, including current conditions, air quality, and a 3-day forecast, using the [WeatherAPI](https://www.weatherapi.com/).
+A Rust-based command-line interface (CLI) application for fetching and displaying weather data, including current conditions, air quality, and a 3-day forecast, using the [WeatherAPI](https://www.weatherapi.com/). Built with Rust for performance and safety, this CLI provides a lightweight way to check weather information.
 
 ## Features
 
 - **Current Weather**: Displays temperature (Celsius and Fahrenheit), weather condition, UV index, humidity, precipitation, wind speed/direction, and dew point.
 - **Air Quality**: Shows US EPA Air Quality Index, PM2.5, and PM10 levels.
 - **3-Day Forecast**: Provides daily max/min temperatures, weather conditions, precipitation, and UV index.
-- **Interactive Input**: Supports location input via command-line arguments or interactive prompt.
-- **Error Handling**: Gracefully handles invalid API keys, empty inputs, and API errors.
+- **Interactive Input**: Supports location input via command-line arguments or an interactive prompt.
+- **Flexibility**: Easily customize output by modifying the Rust code, with predefined data templates for console display.
 
 ## Prerequisites
 
 - **Rust**: Install Rust and Cargo from [rust-lang.org](https://www.rust-lang.org/tools/install).
-- **WeatherAPI Key**: Sign up at [WeatherAPI](https://www.weatherapi.com/) to obtain a free API key (Not needed if using [binary](https://github.com/ferozeren/mosm-rs/releases/tag/0.1.0) instead).
+- **WeatherAPI Key**: Sign up at [WeatherAPI](https://www.weatherapi.com/) to obtain a free API key. Not required if using the precompiled binary ([v0.1.0](https://github.com/ferozeren/mosm-rs/releases/tag/0.1.0)).
 - **Dependencies**: The project uses `reqwest`, `serde`, `serde_json`, and `dotenv` crates.
 
 ## Installation
@@ -25,19 +25,18 @@ A Rust-based command-line interface (CLI) application for fetching and displayin
    ```
 
 2. **Set Up Environment**:
-  
    Create a `.env` file in the project root with your WeatherAPI key:
    ```bash
    echo "WEATHER_API_KEY=your_api_key_here" > .env
    ```
    Replace `your_api_key_here` with your actual WeatherAPI key.
-   Or
-   Provide your WeatherAPI key in src/main.rs
+
+   Alternatively, provide your WeatherAPI key in `src/main.rs`:
    ```rust
-   let api_key: String = load_api_key("YOUR_API_KEY".to_owned()); // Leave "" empty to load from .env file.   
+   let api_key: String = load_api_key("YOUR_API_KEY".to_owned()); // Set your API key or leave empty to load from .env
    ```
 
-4. **Add Dependencies**:
+3. **Add Dependencies**:
    Ensure your `Cargo.toml` includes:
    ```toml
    [dependencies]
@@ -47,59 +46,53 @@ A Rust-based command-line interface (CLI) application for fetching and displayin
    dotenv = "0.15"
    ```
 
-5. **Build and run the Project**:
-   Build Mode:
+4. **Build and Run the Project**:
    ```bash
    cargo run
    ```
-   Release Mode:
+   For optimized performance:
    ```bash
    cargo run --release
    ```
-7. **Install to the ~/.cargo/bin/ (Your Rust's PATH) **:
+
+5. **Install Globally**:
+   Install to `~/.cargo/bin` (Rust’s PATH) for global access:
    ```bash
    cargo install --path .
    ```
+
 ## Usage
 
 Run the application using one of the following methods:
 
 - **With Command-Line Argument** (use quotes for locations with spaces):
   ```bash
-  $ mosm-py Tokyo
+  mosm-rs "London, UK"
   ```
 
-- **Interactive Mode** (prompts for location input):
+- **Interactive Mode**:
   ```bash
-  $ cargo run
-  $ Enter Location: Paris
+  mosm-rs
   ```
-  Enter a location (e.g., city name, IP address, latitude/longitude, US zip code, UK postcode, or Canada postal code).
+  When prompted, enter a location (e.g., city name, IP address, latitude/longitude, US zip code, UK postcode, or Canada postal code):
+  ```
+  Enter Location: Paris
+  ```
 
 ### Example Output
 
-For `cargo run --release  "London, UK"`:
-```
-<>----------------------------------------------------------------------<>
-London (City of London, Greater London, United Kingdom)
-Local Time: 2025-08-02 16:51
+#### Location: New York
+<img width="894" height="471" alt="New_York" src="https://github.com/user-attachments/assets/7e6f3975-7e88-4136-819e-4b1fc10a1221" />
 
-Partly Cloudy | 21.2°C / 70.2°F UV: 3.5
+#### Location: Tokyo
+<img width="894" height="469" alt="Tokyo" src="https://github.com/user-attachments/assets/1dd5cd18-848d-4a61-879e-89b79a19163c" />
 
-Feels like: 21.2°C / 70.2°F     Humidity: 43%   Precip: 0 mm
-Wind: ↖ 11.2kph / 6.9mph        Dew Point: 5.8°C / 42.4°F
-AQI: Good       PM2.5: 9.4 μg/m³        PM10: 12.8 μg/m³
 
-▶ Forecast:
-  - 2025-08-02: 23.1°C / 73.7°F, Partly Cloudy  (Precip: 0 mm, UV: 1.7)
-  - 2025-08-03: 24.8°C / 76.7°F, Patchy rain nearby (Precip: 1.83 mm, UV: 1.3)
-  - 2025-08-04: 23.6°C / 74.5°F, Patchy rain nearby (Precip: 1.86 mm, UV: 1.6)
-<>----------------------------------------------------------------------<>
-```
+
 
 ## Environment Variables
 
-- `WEATHER_API_KEY`: Your WeatherAPI key. If not provided in `.env`, you can pass it as an argument (minimum 20 characters), but this is not recommended for security reasons.
+- `WEATHER_API_KEY`: Your WeatherAPI key. Store it in `.env` for security. Hardcoding the key in `main.rs` is not recommended. However, in a secure, private environment, hardcoding is acceptable. The program first checks for the `WEATHER_API_KEY` in `.env`. If not found, it uses the hardcoded key in `main.rs`. If neither is provided, the installed binary will exit with an error: `ERROR: NO_ENV_FOUND`.
 
 ## Contributing
 
@@ -111,7 +104,7 @@ Contributions are welcome! To contribute:
 4. Push to the branch (`git push origin feature/your-feature`).
 5. Open a Pull Request.
 
-Please ensure your code follows Rust best practices and includes tests where applicable.
+Please ensure your code follows Rust best practices, including running `cargo fmt` and `cargo clippy`, and includes tests where applicable.
 
 ## License
 
