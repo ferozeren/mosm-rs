@@ -17,11 +17,11 @@ reqwest = { version = "0.12", default-features = false, features = [
 dotenv = "0.15.0"
 
 [profile.release]
-opt-level = "s"
+opt-level = "z" # or "z" for small binary also  (try both "z" or "s" to inspect)
 lto = true
 debug = false
 codegen-units = 1
-strip = true
+strip = true # more specifically "symbols"
 panic = "abort"
 incremental = false
 
