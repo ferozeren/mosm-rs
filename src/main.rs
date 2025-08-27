@@ -60,10 +60,6 @@ struct Current {
     gust_mph: f64,
     gust_kph: f64,
     air_quality: AirQuality,
-    short_rad: f64,
-    diff_rad: f64,
-    dni: f64,
-    gti: f64,
 }
 
 /// Location data for weather information.
@@ -102,7 +98,6 @@ struct Day {
     daily_chance_of_snow: i32,
     condition: Condition,
     uv: f64,
-    air_quality: AirQuality,
 }
 
 /// Astronomical data for a specific day.
@@ -155,11 +150,6 @@ struct Hour {
     gust_kph: f64,
     gust_mph: f64,
     uv: f64,
-    air_quality: AirQuality,
-    short_rad: f64,
-    diff_rad: f64,
-    dni: f64,
-    gti: f64,
 }
 
 /// Single day's forecast data.
