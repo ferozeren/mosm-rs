@@ -67,12 +67,12 @@ Run the application using one of the following methods:
 
 - **With Command-Line Argument** (use quotes for locations with spaces):
   ```bash
-  mosm-rs "London, UK"
+  mosm "London, UK"
   ```
 
 - **Interactive Mode**:
   ```bash
-  mosm-rs
+  mosm
   ```
   When prompted, enter a location (e.g., city name, IP address, latitude/longitude, US zip code, UK postcode, or Canada postal code):
   ```
